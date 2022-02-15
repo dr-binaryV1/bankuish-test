@@ -126,8 +126,6 @@ module.exports = {
           raw: true
         })
 
-        console.log(preCourse)
-
         if (preCourse.status !== statusMapping.COMPLETED) {
           return res.status(403).send({ message: `Required course not yet completed. Please complete "${preCourse['course.name']}" before starting this course` })
         } else {
@@ -185,6 +183,7 @@ module.exports = {
         raw: true
       })
 
+      if (!userCourse) return res.status(404).send({ message: 'Course not found' })
       if (userCourse['course.preCourse']) {
         const preCourse = await UserCourse.findOne({
           where: {
