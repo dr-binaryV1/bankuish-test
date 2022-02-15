@@ -1,6 +1,11 @@
 const db = require('./index')
 const { Sequelize } = db
 const User = require('./user')
+const statusMapping = {
+  NOT_STARTED: 'not started',
+  STARTED: 'started',
+  COMPLETED: 'completed'
+}
 
 const Course = db.sequelize.define('course', {
   name: {
@@ -25,7 +30,7 @@ const UserCourse = db.sequelize.define('userCourse', {
   },
   status: {
     type: Sequelize.ENUM,
-    values: ['not started', 'started', 'completed']
+    values: [statusMapping.NOT_STARTED, statusMapping.STARTED, statusMapping.COMPLETED]
   }
 }, {
   freezeTableName: true
@@ -34,7 +39,7 @@ const UserCourse = db.sequelize.define('userCourse', {
 const Schedule = db.sequelize.define('schedule', {
   status: {
     type: Sequelize.ENUM,
-    values: ['started', 'completed']
+    values: [statusMapping.STARTED, statusMapping.COMPLETED]
   }
 }, {
   freezeTableName: true
@@ -53,5 +58,6 @@ Schedule.sync()
 module.exports = {
   UserCourse,
   Schedule,
-  Course
+  Course,
+  statusMapping
 };

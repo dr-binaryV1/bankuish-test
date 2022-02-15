@@ -1,5 +1,5 @@
 const toposort = require('toposort')
-const { UserCourse, Schedule, Course } = require('../models/course')
+const { UserCourse, Schedule, Course, statusMapping } = require('../models/course')
 
 module.exports = {
   makeSchehdule: async (req, res, next) => {
@@ -8,7 +8,7 @@ module.exports = {
       const existingSchedule = await Schedule.findOne({
         where: {
           userId: req.user.id,
-          status: 'started'
+          status: statusMapping.STARTED
         },
         attributes: ['id']
       })
@@ -22,7 +22,7 @@ module.exports = {
 
         const schedule = await Schedule.create({
           userId: req.user.id,
-          status: 'started'
+          status: statusMapping.STARTED
         })
 
         for (let i = 0; i < sortedCourses.length; i++) {
@@ -57,7 +57,7 @@ module.exports = {
             userId: req.user.id,
             courseId: course.id,
             scheduleId: schedule.id,
-            status: 'not started',
+            status: statusMapping.NOT_STARTED,
             order: i
           })
         }
@@ -67,7 +67,6 @@ module.exports = {
         res.status(403).send({ message: 'Cannot have start an new schedule until the current one is completed' })
       }
     } catch (err) {
-      console.log(err)
       return next(err)
     }
   },
@@ -99,13 +98,13 @@ module.exports = {
       })
 
       if (!userCourse) return res.status(404).send({ message: 'Course not found' })
-      if (userCourse.status === 'started') return res.status(200).send({ message: 'Course already started' })
-      if (userCourse.status === 'completed') return res.status(400).send({ message: 'Course already completed' })
+      if (userCourse.status === statusMapping.STARTED) return res.status(200).send({ message: 'Course already started' })
+      if (userCourse.status === statusMapping.COMPLETED) return res.status(400).send({ message: 'Course already completed' })
 
       const startedCourses = await UserCourse.findAll({
         where: {
           userId: req.user.id,
-          status: 'started'
+          status: statusMapping.STARTED
         },
         raw: true
       })
@@ -114,7 +113,7 @@ module.exports = {
 
       if (!userCourse['course.preCourse']) {
         await UserCourse.update(
-          { status: 'started' },
+          { status: statusMapping.STARTED },
           { where: { userId: req.user.id, id: req.params.id } },
         )
       } else {
@@ -129,11 +128,11 @@ module.exports = {
 
         console.log(preCourse)
 
-        if (preCourse.status !== 'completed') {
+        if (preCourse.status !== statusMapping.COMPLETED) {
           return res.status(403).send({ message: `Required course not yet completed. Please complete "${preCourse['course.name']}" before starting this course` })
         } else {
           await UserCourse.update(
-            { status: 'started' },
+            { status: statusMapping.STARTED },
             { where: { userId: req.user.id, id: req.params.id } },
           )
         }
@@ -156,15 +155,15 @@ module.exports = {
 
       if (!userCourse) return res.status(404).send({ message: 'Course not found' })
 
-      if (userCourse.status !== 'started') {
-        if (userCourse.status === 'completed') {
+      if (userCourse.status !== statusMapping.STARTED) {
+        if (userCourse.status === statusMapping.COMPLETED) {
           return res.status(403).send({ message: 'Course already completed' })
-        } else if (userCourse.status === 'not started') {
+        } else if (userCourse.status === statusMapping.NOT_STARTED) {
           return res.status(403).send({ message: 'Course not started' })
         }
       } else {
         await UserCourse.update(
-          { status: 'completed' },
+          { status: statusMapping.COMPLETED },
           { where: { userId: req.user.id, id: req.params.id } },
         )
 
@@ -196,7 +195,7 @@ module.exports = {
           raw: true
         })
 
-        if (preCourse.status !== 'completed') {
+        if (preCourse.status !== statusMapping.COMPLETED) {
           return res.status(403).send({ message: `Unable to view course. Please complete required course "${preCourse['course.name']}"` })
         }
       }
