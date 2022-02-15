@@ -5,21 +5,31 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "generateSeed": "sequelize-cli seed:generate",
+    "seed": "sequelize-cli db:seed:all",
+    "initializeSequelize": "sequelize init"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
+    "dotenv": "^16.0.0",
     "express": "^4.15.3",
     "jwt-simple": "^0.5.1",
-    "mongoose": "^4.11.6",
+    "mongoose": "^6.2.1",
     "morgan": "^1.8.2",
-    "nodemon": "^1.11.0",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0"
+    "nodemon": "^2.0.15",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.16.1",
+    "sequelize-cli": "^6.4.1",
+    "toposort": "^2.0.2"
   }
 }

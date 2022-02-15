@@ -1,37 +1,27 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt-nodejs');
+const db = require('./index')
+const { Sequelize } = db
 
-const userSchema = new Schema({
-    email: { type: String, unique: true, required: true, lowercase: true },
-    password: { type: String }
-});
+const User = db.sequelize.define('user', {
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
+  },
+  email: {
+    type: Sequelize.STRING,
+    unique: true
+  },
+  username: {
+    type: Sequelize.STRING
+  },
+  password: {
+    type: Sequelize.STRING
+  }
+}, {
+  freezeTableName: true
+})
 
-// On Save Hook, encrypt password
-userSchema.pre('save', function(next) {
-    const user = this;
+User.sync()
 
-    bcrypt.genSalt(10, function (err, salt) {
-        if(err) { return next(err); }
-
-        bcrypt.hash(user.password, salt, null, function(err, hash) {
-            if(err) { return next(err); }
-
-            user.password = hash;
-            next();
-        });
-    });
-});
-
-userSchema.methods.comparePassword = function(candidatePassword, callback) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if(err) { return callback(err); }
-
-        callback(null, isMatch);
-    });
-}
-
-const model = mongoose.model('user', userSchema);
-
-
-module.exports = model;
+module.exports = User;
