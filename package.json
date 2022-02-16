@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "dev": "nodemon index.js",
     "generateSeed": "sequelize-cli seed:generate",
     "seed": "sequelize-cli db:seed:all",
