@@ -7,7 +7,7 @@ PostgreSQL `14.2`
 
 ## Environment Vars
 
-Ensure the following environment variables are exported/injected.
+Ensure the following environment variables are set using a `.env` file in the root directory.
 
 ```
 SECRET=add_secret_string_here
