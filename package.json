@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "generateSeed": "sequelize-cli seed:generate",
     "seed": "sequelize-cli db:seed:all",
-    "initializeSequelize": "sequelize init"
+    "initializeSequelize": "sequelize init",
+    "docs": "apidoc -i ./ -o doc/"
   },
   "author": "",
   "license": "ISC",
@@ -32,7 +33,8 @@
     "toposort": "^2.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "jest": "^27.5.1"
+    "apidoc": "^0.50.4",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15"
   }
 }
