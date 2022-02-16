@@ -20,6 +20,27 @@ CREATE DATABASE bankuish-courses;
 CREATE DATABASE bankuish-courses-test;
 ```
 
+Ensure to create file `./config/config.json` and insert configuration
+```bash
+{
+  "development": {
+    "username": "username",
+    "password": null,
+    "database": "bankuish-courses",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "username",
+    "password": null,
+    "database": "bankuish-courses-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
+
+```
+
 ## Running the Api
 ```bash
 # development
