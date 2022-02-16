@@ -22,7 +22,6 @@
     "jwt-simple": "^0.5.1",
     "mongoose": "^6.2.1",
     "morgan": "^1.8.2",
-    "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -33,6 +32,7 @@
     "toposort": "^2.0.2"
   },
   "devDependencies": {
+    "nodemon": "^2.0.15",
     "jest": "^27.5.1"
   }
 }
