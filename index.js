@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const router = require('./router')
+const db = require('./models')
 
 const app = express();
 
@@ -15,6 +16,8 @@ router(app);
 
 const port = process.env.PORT || 3090;
 const server = http.createServer(app);
+
+db.sequelize.sync()
 
 server.listen(port);
 console.log('server listening on port: ', port);
