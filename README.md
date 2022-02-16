@@ -53,3 +53,8 @@ $ npm run dev
 # unit tests
 $ npm run test
 ```
+
+## Generating API documentation
+```bash
+$ npm run docs
+```
