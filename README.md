@@ -35,10 +35,16 @@ Ensure to create file `./config/config.json` and insert configuration
     "password": null,
     "database": "bankuish-courses-test",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   }
 }
 
+```
+
+## Installing Dependencies
+```bash
+$ npm install
 ```
 
 ## Running the Api
