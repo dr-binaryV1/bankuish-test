@@ -1,4 +1,4 @@
-# Bankquish Interview Test
+# Bankuish Interview Test
 
 ## Requirements
 
