@@ -23,48 +23,55 @@ module.exports = function (app) {
    */
   app.post('/signin', requireSignin, Auth.signin);
 
-   /**
-   * @api {post} /signup Sign Up
-   * @apiName CreateUser
-   * @apiGroup Authentication
-   *
-   * @apiParam (body) {String} email Email address.
-   * @apiParam (body) {String} password Password.
-   * @apiParam (body) {String} firstName First Name.
-   * @apiParam (body) {String} lastName Last Name.
-   *
-   * @apiSuccess {String} token API token for authenticated user
-   */
+  /**
+  * @api {post} /signup Sign Up
+  * @apiName CreateUser
+  * @apiGroup Authentication
+  *
+  * @apiParam (body) {String} email Email address.
+  * @apiParam (body) {String} password Password.
+  * @apiParam (body) {String} firstName First Name.
+  * @apiParam (body) {String} lastName Last Name.
+  *
+  * @apiSuccess {String} token API token for authenticated user
+  */
   app.post('/signup', Auth.signup);
 
-   /**
-   * @api {post} /schedule Create Schedule
-   * @apiName CreateSchedule
-   * @apiGroup Course
-   *
-   * @apiParam (body) {Object[]} courses List of courses.
-   *
-   * @apiSuccess {String} message Success message
-   */
+  /**
+  * @api {post} /schedule Create Schedule
+  * @apiName CreateSchedule
+  * @apiGroup Course
+  * 
+  * @apiHeader  {String} auth token.
+  * @apiHeader  [Accept=application/json] application/json.
+  *
+  * @apiParam (body) {Object[]} courses List of courses.
+  *
+  * @apiSuccess {String} message Success message
+  */
   app.post('/schedule', requireAuth, makeSchehdule)
 
-   /**
-   * @api {get} /schedule Get Schedule
-   * @apiName GetSchedule
-   * @apiGroup Course
-   *
-   * @apiSuccess {Object[]} courses List of courses
-   */
+  /**
+  * @api {get} /schedule Get Schedule
+  * @apiName GetSchedule
+  * @apiGroup Course
+  * @apiHeader  {String} auth token.
+  * @apiHeader  [Accept=application/json] application/json.
+  *
+  * @apiSuccess {Object[]} courses List of courses
+  */
   app.get('/schedule', requireAuth, getSchehdule)
 
-   /**
-   * @api {put} /course/:id/start Start a course
-   * @apiName StartCourse
-   * @apiGroup Course
-   * 
-   * 
-   * @apiSuccess {String} message Success Message
-   */
+  /**
+  * @api {put} /course/:id/start Start a course
+  * @apiName StartCourse
+  * @apiGroup Course
+  * 
+  * @apiHeader  {String} auth token.
+  * @apiHeader  [Accept=application/json] application/json.
+  * 
+  * @apiSuccess {String} message Success Message
+  */
   app.put('/course/:id/start', requireAuth, startCourse)
 
   /**
@@ -72,6 +79,8 @@ module.exports = function (app) {
    * @apiName CompleteCourse
    * @apiGroup Course
    * 
+   * @apiHeader  {String} auth token.
+   * @apiHeader  [Accept=application/json] application/json.
    * 
    * @apiSuccess {String} message Success Message
    */
@@ -83,6 +92,8 @@ module.exports = function (app) {
    * @apiName ViewCourse
    * @apiGroup Course
    * 
+   * @apiHeader  {String} auth token.
+   * @apiHeader  [Accept=application/json] application/json.
    * 
    * @apiSuccess {Object} course Course object
    */
