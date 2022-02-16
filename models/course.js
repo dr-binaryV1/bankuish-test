@@ -227,10 +227,6 @@ UserCourse.belongsTo(User)
 Schedule.belongsTo(User)
 Schedule.hasMany(UserCourse, { as: 'Courses' })
 
-UserCourse.sync()
-Schedule.sync()
-Course.sync()
-
 module.exports = {
   Schedule,
   statusMapping,
