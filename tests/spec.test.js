@@ -8,6 +8,7 @@ const {
   Course,
   viewCourse
 } = require('../models/course')
+const db = require('../models')
 
 describe('Course Test', () => {
   let user
@@ -33,6 +34,10 @@ describe('Course Test', () => {
       "requiredCourse": "InvestmentManagement"
     }
   ]
+
+  beforeAll(async () => {
+    await db.sequelize.sync()
+  })
 
   beforeEach(async () => {
     user = await User.create({
